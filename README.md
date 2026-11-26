@@ -57,7 +57,7 @@ puedes desactivar la confirmación en **Authentication → Providers → Email**
 
 1. Sube este proyecto a un repositorio de GitHub.
 2. En https://vercel.com → **Add New → Project** → importa el repositorio (detecta Next.js solo).
-3. En **Environment Variables** agrega `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. En **Storage** conecta Supabase (crea la base y las variables `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` automáticamente), o agrégalas a mano en **Environment Variables**.
 4. **Deploy.** Después actualiza la *Site URL* y las *Redirect URLs* de Supabase con tu dominio de Vercel.
 
 En el celular, abre la URL y usa "Agregar a pantalla de inicio" para instalarla como app.

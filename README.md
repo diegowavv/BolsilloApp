@@ -35,6 +35,8 @@ Otros comandos: `npm test` (tests de los cálculos), `npm run lint`, `npm run ty
 2. En **SQL Editor**, pega y ejecuta en orden:
    - `supabase/migrations/0001_init.sql` (tablas, seguridad por usuario)
    - `supabase/migrations/0002_seed.sql` (categorías incluidas)
+   - `supabase/migrations/0003_hardening.sql` (validaciones, cuotas y permisos mínimos)
+   - Opcional: `supabase/tests/rls_pentest.sql` comprueba que ningún usuario pueda ver o tocar datos ajenos (no modifica nada).
 3. En **Project Settings → API** copia la *Project URL* y la *anon public key*.
 4. Copia `.env.example` como `.env.local` y pega los dos valores.
 5. En **Authentication → URL Configuration**:

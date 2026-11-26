@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button, Field, Input } from "@/components/ui";
+import { PASSWORD_HINT, passwordError } from "@/lib/password";
 import { getSupabase } from "@/lib/supabase/client";
 import { AuthLayout, authError } from "../../auth-ui";
 
@@ -14,7 +15,8 @@ export default function NuevaContrasenaPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.length < 8) return setError("La contraseña debe tener al menos 8 caracteres.");
+    const pwError = passwordError(password);
+    if (pwError) return setError(pwError);
     setLoading(true);
     const { error } = await getSupabase().auth.updateUser({ password });
     setLoading(false);
@@ -25,7 +27,7 @@ export default function NuevaContrasenaPage() {
   return (
     <AuthLayout title="Nueva contraseña" subtitle="Escribe tu nueva contraseña para entrar.">
       <form onSubmit={submit} className="space-y-4">
-        <Field label="Nueva contraseña" hint="Mínimo 8 caracteres.">
+        <Field label="Nueva contraseña" hint={PASSWORD_HINT}>
           <Input type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} />
         </Field>
         {error && <p className="text-sm text-bad">{error}</p>}

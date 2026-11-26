@@ -112,7 +112,7 @@ export function authError(msg: string) {
   if (m.includes("invalid login")) return "Correo o contraseña incorrectos.";
   if (m.includes("email not confirmed")) return "Confirma tu correo antes de entrar (revisa tu bandeja).";
   if (m.includes("already registered")) return "Ese correo ya tiene una cuenta. Inicia sesión.";
-  if (m.includes("password should be")) return "La contraseña debe tener al menos 8 caracteres.";
+  if (m.includes("password should") || m.includes("weak password")) return "Contraseña débil: usa mínimo 8 caracteres con letras y números.";
   if (m.includes("rate limit")) return "Demasiados intentos. Espera un momento.";
   return msg;
 }

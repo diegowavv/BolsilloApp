@@ -51,7 +51,12 @@ export default function MovimientosPage() {
         t.recurrente ? "si" : "no",
       ];
     });
-    const csv = [header, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+    // Evita inyección de fórmulas al abrir el CSV en Excel/Sheets (=, +, -, @ al inicio).
+    const cell = (v: string) => {
+      const s = /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+      return `"${s.replace(/"/g, '""')}"`;
+    };
+    const csv = [header, ...rows].map((r) => r.map((v) => cell(String(v))).join(",")).join("\n");
     const url = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
     const a = document.createElement("a");
     a.href = url;

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MailCheck } from "lucide-react";
 import { Button, Field, Input } from "@/components/ui";
+import { PASSWORD_HINT, passwordError } from "@/lib/password";
 import { getSupabase } from "@/lib/supabase/client";
 import { AuthLayout, Divider, GoogleButton, authError } from "../auth-ui";
 
@@ -19,7 +20,8 @@ export default function RegistroPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.length < 8) return setError("La contraseña debe tener al menos 8 caracteres.");
+    const pwError = passwordError(password);
+    if (pwError) return setError(pwError);
     setLoading(true);
     setError(null);
     const { data, error } = await getSupabase().auth.signUp({
@@ -62,7 +64,7 @@ export default function RegistroPage() {
         <Field label="Correo">
           <Input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </Field>
-        <Field label="Contraseña" hint="Mínimo 8 caracteres.">
+        <Field label="Contraseña" hint={PASSWORD_HINT}>
           <Input type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} />
         </Field>
         {error && <p className="text-sm text-bad">{error}</p>}

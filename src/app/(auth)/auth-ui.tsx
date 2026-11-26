@@ -43,7 +43,20 @@ export function AuthLayout({ title, subtitle, children }: { title: string; subti
           <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
           <p className="mb-7 mt-1 text-sm text-muted">{subtitle}</p>
           {isSupabaseConfigured ? (
-            children
+            <>
+              {children}
+              <p className="mt-8 text-center text-xs text-muted">
+                Al continuar aceptas los{" "}
+                <Link href="/terminos" className="underline hover:text-ink">
+                  términos de uso
+                </Link>{" "}
+                y el{" "}
+                <Link href="/privacidad" className="underline hover:text-ink">
+                  aviso de privacidad
+                </Link>
+                .
+              </p>
+            </>
           ) : (
             <div className="space-y-4 rounded-3xl border border-dashed border-brand/40 bg-brand-soft/50 p-5 text-sm text-ink-2">
               <p>
